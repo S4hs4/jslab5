@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лабораторна робота №5 - DOM та Події</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+    section { margin-bottom: 25px; padding: 15px; border: 1px solid #ccc; border-radius: 8px; }
+    input[type="text"], input[type="number"] { padding: 6px; margin: 5px; font-size: 14px; }
+    button { padding: 6px 12px; font-size: 14px; cursor: pointer; margin: 5px; }
+    
+    /* Стилі для ротатора фотографій */
+    #rotator {
+      border: 1px solid #ccc;
+      padding: 15px;
+      max-width: 500px;
+      text-align: center;
+      margin-top: 10px;
+      background-color: #f9f9f9;
+    }
+    .rotator-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 250px;
+    }
+    .rotator-nav {
+      color: blue;
+      cursor: pointer;
+      font-weight: bold;
+      user-select: none;
+      width: 60px;
+    }
+    .rotator-nav.hidden { visibility: hidden; }
+    .rotator-img { max-width: 320px; max-height: 220px; border-radius: 4px; object-fit: cover; }
+    
+    /* Стилі для Капчі */
+    .captcha-box {
+      display: inline-block;
+      background: #333;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin: 10px 0;
+      letter-spacing: 4px;
+    }
+    .captcha-pixel {
+      color: #0f0;
+      font-family: monospace;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .score-text { font-weight: bold; color: #333; }
+    .status-msg { margin-top: 8px; font-weight: bold; }
+    .error-msg { color: red; }
+    .success-msg { color: green; }
+  </style>
+</head>
+<body>
+  <h1>Лабораторна робота №5: DOM та Обробка подій</h1>
+  <p><strong>Студент:</strong> Дебенко Олександр (№3 у журналі — Варіант галереї: Собаки)</p>
+
+  <!-- Завдання 1: Конвертер температур -->
+  <section>
+    <h2>1. Конвертер температур (Цельсій / Фаренгейт)</h2>
+    <div>
+      <label>Температура за Фаренгейтом (°F): </label>
+      <input type="number" id="tempF" placeholder="0">
+    </div>
+    <div>
+      <label>Температура за Цельсієм (°C): </label>
+      <input type="number" id="tempC" placeholder="0">
+    </div>
+  </section>
+
+  <!-- Завдання 2: Таблиця множення (Введення числом) -->
+  <section>
+    <h2>2. Перевірка таблиці множення (Текстове поле)</h2>
+    <div id="multScore1" class="score-text">Загальний рахунок 100% (0 правильних відповідей з 0)</div>
+    <button id="btnNext1">Наступне завдання</button>
+    <div style="margin: 10px 0;">
+      <span id="taskText1" style="font-size: 18px; font-weight: bold;"></span>
+      <input type="number" id="userAns1" style="width: 60px;">
+      <button id="btnCheck1">Перевірити</button>
+    </div>
+    <div id="resultMsg1" class="status-msg"></div>
+  </section>
+
+  <!-- Завдання 3: Таблиця множення (Radio-кнопки) -->
+  <section>
+    <h2>3. Перевірка таблиці множення (Радіокнопки)</h2>
+    <div id="multScore2" class="score-text">Загальний рахунок 100% (0 правильних відповідей з 0)</div>
+    <button id="btnNext2">Наступне завдання</button>
+    <div style="margin: 10px 0;">
+      <span id="taskText2" style="font-size: 18px; font-weight: bold;"></span>
+      <div id="radioOptionsContainer" style="margin-top: 8px;"></div>
+    </div>
+    <div id="resultMsg2" class="status-msg"></div>
+  </section>
+
+  <!-- Завдання 4: Фоторотатор (Собаки) -->
+  <section>
+    <h2>4. Ротатор фотографій (Тематика: Собаки)</h2>
+    <div id="rotator"></div>
+  </section>
+
+  <!-- Завдання 5: Captcha -->
+  <section>
+    <h2>5. Генератор Captcha</h2>
+    <button id="btnReloadCaptcha">Згенерувати нову капчу</button>
+    <div>
+      <div id="captchaDisplay" class="captcha-box"></div>
+    </div>
+    <div>
+      <label>Введіть число: </label>
+      <input type="text" id="captchaInput" style="width: 100px;">
+      <button id="btnCheckCaptcha">Перевірити</button>
+    </div>
+    <div id="captchaResult" class="status-msg"></div>
+  </section>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
